@@ -6,11 +6,11 @@ _base_ = [
 ]
 
 # data
-data = dict(samples_per_gpu=128)
+data = dict(samples_per_gpu=64)
 
 # optimizer
 optimizer = dict(
-    lr=2e-4 * 2048 / 512,
+    lr=2e-4 * 1024 / 512,
     betas=(0.9, 0.999),
     eps=1e-8,
     paramwise_options={
@@ -26,7 +26,7 @@ optimizer_config = dict(grad_clip=dict(max_norm=5.0))
 # learning policy
 lr_config = dict(
     policy='CosineAnnealing',
-    min_lr=1e-5 * 2048 / 512,
+    min_lr=1e-5 * 1024 / 512,
     warmup='linear',
     warmup_iters=10,
     warmup_ratio=1e-6 / 2e-4,
@@ -43,6 +43,6 @@ runner = dict(max_epochs=100)
 checkpoint_config = dict(interval=1, max_keep_ckpts=3, out_dir='')
 persistent_workers = True
 log_config = dict(
-    interval=100, hooks=[
-        dict(type='TextLoggerHook'),
+    interval=20, hooks=[
+        dict(type='TextLoggerHook', ignore_last=False),
     ])

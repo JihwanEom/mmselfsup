@@ -5,7 +5,7 @@ img_norm_cfg = dict(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 train_pipeline = [
     dict(
         type='RandomResizedCrop',
-        size=224,
+        size=192,
         scale=(0.67, 1.0),
         ratio=(3. / 4., 4. / 3.)),
     dict(type='RandomHorizontalFlip')
@@ -21,7 +21,7 @@ if not prefetch:
 train_pipeline.append(
     dict(
         type='SimMIMMaskGenerator',
-        input_size=224,
+        input_size=192,
         mask_patch_size=32,
         model_patch_size=4,
         mask_ratio=0.6))
